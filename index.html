@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>디지털 시계</title>
     <link rel="stylesheet" href="style.css">
+    <title>To-Do List</title>
 </head>
 <body>
+    <div class="background">
+        <h1>To Do List</h1>
         <div class="container">
-        <!-- 묶어서 사용하기 위한 block container -->
-            <div class="clock">
-                <h2 id="cho">Digital Clock</h2>
-                <h1 id="time"></h1>
-            
-            <button id = "start">START</button>
-            <button id = "stop">STOP</button>
-            <button id = "reset">RESET</button>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="Enter your to-do">
+                <select id="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="very-high">Very High</option>
+                </select>
+                <button type="button" onclick="addTodo()">Add</button>
+            </form>
+            <div id="button-container">
+                <button onclick="filterTasks('all')">All</button>
+                <button onclick="filterTasks('undone')">Undone</button>
+                <button onclick="filterTasks('done')">Done</button>
             </div>
+            <div id="your-input-id" class="tasks"></div>
+        </div>
     </div>
-    <script src="script.js">
-        
-    </script>
+    <script src="todo.js"></script>
 </body>
 </html>
