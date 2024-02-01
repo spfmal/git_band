@@ -1,88 +1,96 @@
-let handleID = 0; // 타이머 핸들 ID 초기화
-const timeDisplay = document.getElementById("time"); // html에서 시간 표기할 요소 어디서든지 참조 가능
+let selectedDate = new Date(); //date객체로 초기화를 안 해서 getMonth에 오류가...
+//현재 날짜 초기화
+function generateCalendar(year, month) {
+  const daysInMonth = new Date(year, month + 1, 0).getDate(); // 현재 월의 총 일 수
+  const firstDayOfMonth = new Date(year, month, 1).getDay(); // 첫째 날의 요일
+  //<h2>
+  const titleElement = document.getElementById("calendar-title"); //캘린더 제목 엘리먼트
+  titleElement.textContent = `${year}년 ${month + 1}월`; // month는 0부터 시작하므로 1을 더해줍니다.
+  //캘린더 제목 업데이트
+  const table = document.createElement('table'); //테이블 엘리먼트 생성
+  let dayCounter = 1; //1일을 기준으로 초기화
 
-let hoursInput, minutesInput, secondsInput; // 시간 , 분 , 초 입력값 변수
-// var는 함수 스코프 때문에 블록 스코프인 let, const 중에서 재할당 가능한 let으로 결정!
-function timerChange(num) {
-    return (0 <= num && num < 10) ? "0" + num : num; //숫자 두 자리 변환 ? 참일 경우 : 거짓 경우
-}
-// 타이머 업데이트 함수
-function update() {
-    if (hoursInput > 0 || minutesInput > 0 || secondsInput > 0) { //입력한 시간이 0보다 크면
-        let remain = hoursInput * 3600 + minutesInput * 60 + secondsInput; // 어차피 초단위니까 이런 식으로 계산하기
-        remain--; //감소
+  // 헤더
+  const headerRow = table.insertRow();
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  for (let i = 0; i < 7; i++) {
+    const th = document.createElement('th');
+    th.textContent = daysOfWeek[i];
+    headerRow.appendChild(th);
+  }
+  const memoDates = getMemoDates(year, month); // 메모가 있는 날짜 가져오기
+  // 달력
+  for (let i = 0; i < 6; i++) {
+    const row = table.insertRow();
+    for (let j = 0; j < 7; j++) {
+      const cell = row.insertCell();
 
-        const hours = Math.floor(remain / 3600); //시분초 지역변수 설정 > Math.floor 소수점 이하 버림: 시간에 소수 나오는 걸 방지
-        //만약 Math.ceil을 사용해서 올림해버리면 1분 30초가 2분, 이런 식으로 올림 돼서 정확한 시간 표현 불가능
-        const minutes = Math.floor((remain % 3600) / 60); //시간의 나머지 값에 60 나누기 = 분을 표현
-        const seconds = remain % 60;
+      if (i === 0 && j < firstDayOfMonth) { // 첫째 날 시작 전에 비어있는 달력 셀들
+        continue;
+      }
 
-        timeDisplay.textContent = `${timerChange(hours)}:${timerChange(minutes)}:${timerChange(seconds)}`;
-        //위에서 만든 timerChange 함수로 시간을 두 자리 문자열로 변환 > 템플릿 리터럴 사용 함수의 결과를 ':'로 구분하여 합침
-        //timeDisplay가 시간을 표시할 요소니까 이 문자열을 대입하기 위해 textContent 사용, 시간을 html에 표시 '가 아니라 `인 점 유의
+      if (dayCounter > daysInMonth) { // 그 달의 날짜가 다 채워지면 멈춤
+        break;
+      }
 
-        //const로 계산했던 값으로 변수 갱신 
-        hoursInput = hours; //원래는 hoursInput, hours 이렇게 변수 여러 개 안 쓰려고 했는데 도저히 변수 갱신할 게 생각이 안 남
-        minutesInput = minutes;
-        secondsInput = seconds;
-    } else { //0일 때의 경우
-        clearInterval(handleID);
-        handleID = 0;
-        timeDisplay.textContent = "00:00:00";
-        alert("타이머가 종료되었습니다.");
+      cell.textContent = dayCounter; //셀에 날짜 표시
+      cell.dataset.date = `${year}-${month + 1}-${dayCounter}`; //날짜 데이터 속성 추가
+      cell.onclick = showMemoPopup; // 클릭 이벤트 주면 메모 팝업 표시
+        
+      // 메모가 있는 날짜에 배경색 변경
+      if (memoDates.includes(cell.dataset.date)) {
+        cell.style.backgroundColor = 'lightblue';
+      }
+    dayCounter++;
     }
+  }
+  document.getElementById('calendar').innerHTML = ''; //캘린더 초기화
+  document.getElementById('calendar').appendChild(table); //테이블 추가
 }
+ // 해당 월에 메모가 있는 날짜 가져오기 
+function getMemoDates(year, month) { //메모가 있는 날짜를 가져오면
+  const memoDates = [];
+  const lastDayOfMonth = new Date(year, month + 1, 0).getDate(); //현재 월의 마지막 날짜
 
-function parseTimeInput(input) { //이게 없으면 01:01:01 입력해도 10시간 됨
-    const parsedInput = parseInt(input); //문자열을 정수로 반환
-    return isNaN(parsedInput) ? 0 : parsedInput; //주어진 값이 숫자가 아니라면 0 반환, 숫자면 정수로 변환한 값을 반환
-}
-
-document.getElementById("start").onclick = function () { //onclick을 써서 HTML에 직접 이벤트 핸들러를 등록 (button의 속성)
-    //document(HTML)에서 start라는 id를 가진 요소를 반환
-    if (handleID === 0) { // 타이머 작동 안 할 시
-        const timeInput = prompt("시간을 입력하세요 (시:분:초): "); // 사용자에게 시간 입력받기 단순한 메시지인 alert보다 시간 입력을 위해 prompt 사용
-        const timeParts = timeInput.split(':'); //받은 입력을 : 을 기준으로 분리
-
-        if (timeParts.length === 3) { // 모든 값을 다 입력받았다면 실행 (배열의 길이 3으로 설정)
-            hoursInput = parseTimeInput(timeParts[0]); // 배열 첫 번째 값을 입력 받고 위의 함수로 가서 문자열을 정수로 변환하고 변수에 저장
-            minutesInput = parseTimeInput(timeParts[1]);
-            secondsInput = parseTimeInput(timeParts[2]);
-
-            timeDisplay.textContent = `${timerChange(hoursInput)}:${timerChange(minutesInput)}:${timerChange(secondsInput)}`;
-            // 52번 줄을 쓰기 전까진 1초씩 삭제되는 현상 발생 ex: 01:01:01 이라고 입력하면 시간이 01:01:00 부터 진행되는 모습 솔직히 아직도 좀 의문
-            // 아마도 위에 remain--; 때문에 미리 1초씩 감소해서 보여지는 듯 그래서 hoursInput을 템플릿 리터럴에 넣어서 진행
-            // 생각해 보니까 사용자에게 입력 받은 값을 먼저 보여주고, (위의 템플릿 리터럴) 그 후에 remain--;로 1초씩 감소하는 모습을 이어서 보여준다 하면 말이 될지도
-            handleID = setInterval(update, 1000); // setInterval을 사용하여 1초 간격으로 update 반복 실행 (1000ms)
-        } else {
-            alert("올바른 시간 형식을 입력하세요. (시:분:초)");
-        }
+  for (let day = 1; day <= lastDayOfMonth; day++) {
+    const date = `${year}-${month + 1}-${day}`;
+    if (localStorage.getItem(date)) {
+      memoDates.push(date);
     }
-};
+  } return memoDates;
+}
+//이전달
+  function showPreviousMonth() {
+    const currentMonth = selectedDate.getMonth();
+    selectedDate.setMonth(currentMonth - 1);
+    generateCalendar(selectedDate.getFullYear(), selectedDate.getMonth());
+  }
+//다음달
+function showNextMonth() {
+  const currentMonth = selectedDate.getMonth();
+  selectedDate.setMonth(currentMonth + 1);
+  generateCalendar(selectedDate.getFullYear(), selectedDate.getMonth());
+}
+//원래는 새로운 함수 만들고 (-n) 또는 (n) 이런 식으로 하려 했는데 따로 씀
+// 클릭하면 메모 팝업 보여짐
+function showMemoPopup(event) {
+  const date = event.target.dataset.date; //클릭한 셀의 날짜 가져오기
+  const memoPopup = document.getElementById('memoPopup'); //메모 팝업 엘리먼트 가져오기
+  memoPopup.style.display = 'block'; //메모 팝업 보이게 설정
 
-document.getElementById("stop").onclick = function () {
-    clearInterval(handleID); //현재 실행 중인 타이머 중지
-    handleID = 0; //현재 실행 중인 타이머가 없다는 뜻
-};
+  // 지금 날짜 메모 팝업에 보이게
+  memoPopup.dataset.date = date;
+  // 메모 있으면 보이게 하기
+  document.getElementById('memoText').value = localStorage.getItem(date) || '';
+} 
+// 메모 저장하고 팝업 닫기
+function saveMemo() {
+  const memoPopup = document.getElementById('memoPopup'); //메모 팝업 엘리먼트 가져오기
+  const date = memoPopup.dataset.date; //팝업에 표시된 날짜 가져오기
+  const memoText = document.getElementById('memoText').value; //메모 내용 가져오기
 
-document.getElementById("reset").onclick = function () {
-    clearInterval(handleID);
-    handleID = 0;
-    hoursInput = 0; // 새 동작을 입력하기 전에 변수를 0으로 초기화해야 함
-    minutesInput = 0;
-    secondsInput = 0;
-    timeDisplay.textContent = "00:00:00"; //timeDisplay가 시간을 표시할 요소니까 그걸 0으로 초기화한 것처럼 보이게 함 (어차피 같은 문자열)
-
-
-    setTimeout(function() { //setTimeout 을 통하지 않고 click 이벤트만 넣으면 "00:00:00" 되지 않고 바로 그 자리에서 start과 연결됨
-        //setInterval이 아니라 setTimeout을 쓴 이유는 setTimeout은 한 번만 동작 실행일 때 사용되지만 setInterval은 반복적이기 때문
-    document.getElementById("start").click(); // reset의 클릭 이벤트 내에서 start에 대한 참조를 얻어와서 클릭 이벤트 발생
-    //onclick이 아니라 click을 쓴 이유는 html과 js를 분리하여 사용하기 위해서 (찾아보니까 click이 일반적이래)
-    }, 100); //따라서 100ms 의 차이를 주어서 00:00:00이 되게 시각적으로 보여준 담에 start 버튼 실행되게 설정
-};
-
-
-//이 타이머의 문제점 (근데 이거까지 해결은 못 하겠음)
-//1. 시간을 입력할 때 숫자를 두 자리수 이상 적으면 Math.floor 계산에 의해 :의 경계를 넘음 (ex, 0:0:1000 입력 시 16분 40초로 진행됨)
-//2. 문자열 입력할 시 "0"으로 인식하고 진행 > 오류가 뜨면 좋겠달까? (ex, !@#:!@#$@!%:%^$% 이런 식으로 입력하면 00:00:00으로 인식)
-//3. 
+  localStorage.setItem(date, memoText); //로컬 스토리지에 메모 저장
+  memoPopup.style.display = 'none'; //메모 팝업 닫기
+}
+const currentDate = new Date();
+generateCalendar(currentDate.getFullYear(), currentDate.getMonth()); //현재 월의 캘린더 표시
