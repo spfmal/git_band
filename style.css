@@ -1,44 +1,280 @@
-html, body{
+body {
+    font-family: "Noto Sans", "Noto Sans KR", sans-serif;
+    box-sizing: border-box;
+    position: relative;
+    line-height: 1.5;
     margin: 0;
-    background-color: rgb(110, 140, 174);
+    padding: 0;
+    vertical-align: baseline;
+    min-height: 100vh;
+    font-size: 0.875rem;
+    background-color: #d7dbe8;
 }
-.container{
-    text-align: center;
-    padding: 250px 0;
-    border: 3px #5c6188;
-    box-shadow:#383838;
-    
+element.style {
+    border-radius: 50%;
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
 }
-.clock{
-    width: 500px; height: 400px; margin: 15px auto;
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    background: linear-gradient(135deg, #527fd8, #94719d);
+img{
+    vertical-align: baseline;
+    color:rgb(26, 27, 28);
 }
-button{
-    background-color: rgb(228, 220, 138);
-    padding: 10px 20px;
-    font-size: none;
-    font-family: Arial, Helvetica, sans-serif;
+* {
+    outline: none;
+    box-sizing: inherit;
+    color: #1a1b1c;
+}
+
+@media (max-width: 1024px) {
+    .iCVkCt {
+        flex-direction: column;
+        padding: 20px 0 40px;
+    }
+}
+
+.iCVkCt {
+    padding: 40px 0 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, main, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    color: #1a1b1c;
+}
+
+.iaxWVI {
+    margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+    .ePonHG {
+        gap: 16px;
+        margin-bottom: 16px;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.ePonHG {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+.cxEeDq {
+    border: none;
+    padding: 0px;
+    background: none;
     cursor: pointer;
-    border-radius: 40px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
-h2 {
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-size: 30px;
-    color: #2e2e2e;
+.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-categories {
+    margin-bottom: 5px;
+    display: flex;
+}
+.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-categories .happyfolio-card-info-category {
+    color: rgb(147, 153, 153);
+    background-color: rgb(240, 243, 243);
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 5px;
+}
+@media (max-width: 1024px)
+{}.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-title {
+    -webkit-line-clamp: 1;
+    height: auto;
+}
+@media (max-width: 767px)
+{}.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-title {
+    height: 42px;
+    -webkit-line-clamp: 2;
+}
+.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-host-and-price-wrapper .happyfolio-card-info-host {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
     margin-bottom: 8px;
 }
-h1{
-    font-family: 'Arial', sans-serif;
-    padding: 15%;
-    width: 200px; height: 100px; margin: 15px auto;
-    font-size: 50px;
-    color: #c2d084; 
-    margin-bottom: 12px;
+.gNZPqa {
+    width: 100%;
+    box-shadow: rgba(26, 27, 28, 0.12) 0 4px 8px 0;
+    opacity: 1;
+    transition: transform 0.4s ease 0s, box-shadow 0.4s ease 0s;
+    border-radius: 5px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.gARjfK .happyfolio-card-image-wrapper {
+    width: 100%;
+    position: relative;
+    padding-top: 75%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+@media (max-width: 767px)
+{}.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-title {
+    height: 42px;
+    -webkit-line-clamp: 2;
+}
+.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-host-and-price-wrapper .happyfolio-card-info-host .happyfolio-card-info-host-image-wrapper {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-right: 4px;
+}
+.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-host-and-price-wrapper .happyfolio-card-info-host .happyfolio-card-info-host-name {
+    font-size: 12px;
+    color: rgb(147, 153, 153);
+}
+.gARjfK .happyfolio-card-info-wrapper .happyfolio-card-info-host-and-price-wrapper .happyfolio-card-info-price {
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    font-size: 14px;
     font-weight: bold;
-    border: 3px solid;
-    border-radius: 10px;
-    background-color: rgb(37, 17, 82); opacity: 0.5;
+}
+
+.cYMxYm .banner-text-area .headhunting-description strong {
+    display: inline-block;
+    font-weight: 700;
+    font-size: inherit;
+    color: inherit;
+}
+.cYMxYm .banner-text-area .headhunting-setup-button {
+    display: block;
+    flex-shrink: 0;
+    width: 148px;
+    padding: 12px 0px 13px;
+    border-radius: 23px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    color: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.25);
+    text-align: center;
+}
+.cYMxYm .banner-image-wrapper picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center center;
+    transition: transform 1s ease 0s;
+}
+.project-card-image{
+    max-width: 100%;
+    height: auto;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+@media (max-width: 1024px) {
+    .ilBidh {
+        height: auto;
+        padding: 24px 28px;
+    }
+}
+
+.ilBidh {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 27px 0 37px;
+    border-top: 1px solid #e5eaeae6;
+    background-color: #fff;
+}
+element.style {
+    border-radius: 5px;
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+.juvvDD {
+    border: none;
+    padding: 0px;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+button {
+    appearance: auto;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    margin: 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+.dLCJoG {
+    display: flex;
+    padding: 12px;
+    width: 100%;
+    position: relative;
+}
+.dLCJoG .recruitment-card-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
 }
