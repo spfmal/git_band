@@ -11,17 +11,6 @@ head,body {
     max-width: 600px;
     margin: auto;
   }
-h1{
-    font-size: large;
-    font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 2px 2px 4px rgb(175, 175, 175);
-    background: linear-gradient(#b3c286, rgb(144, 199, 212));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-left: 600px;
-    padding: 50px;
-}
   .slider-track {
     display: flex;
     transition: transform 0.5s ease-in-out;
