@@ -3,43 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
-    <style>
-*{
-  margin:0;
-  background-color: rgb(218, 185, 226);
-}
-button{
-  background-color: rgb(138, 159, 228);
-  font-size: none;
-  font-family: Arial, Helvetica, sans-serif;
-  cursor: pointer;
-  border-radius: 40px;
-}h2 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px;
-  color: #6c6c6c;
-  margin-bottom: 8px;
-}
-h1{
-  font-family: 'Arial', sans-serif;
-  color: #c184d0; 
-  background-color: rgb(78, 62, 113); opacity: 0.5;
-}
-    </style>
+    <title>반응형 네비바</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="<link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet"> -->
 </head>
 <body>
-    <h1>Calendar (with Memo)</h1>
-    <h2 id="calendar-title"></h2>
-    <div id="calendar">
-    </div>
-    <div id="memoPopup" class="memo-popup">
-      <textarea id="memoText" placeholder="메모를 작성해주세요."></textarea>
-      <button onclick="saveMemo()">일정 저장</button>
-    </div>
-    <button onclick="showPreviousMonth()">Previous Month</button>
-    <button onclick="showNextMonth()">Next Month</button>
-    <script src="script.js">
-    </script>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Logo Text</a>
+            <a href="#" class="navbar_toggleBtn">
+                <img src="more.png" alt="hamburger" width="24px" height="24px">
+            </a>
+            <ul class="menu">
+                    <li><a href="#">Home</a></li> <!-- 공백이 아니라 href #으로 해주면 해결 -->
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+    <script src="script.js" defer></script>
 </body>
 </html>
